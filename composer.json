@@ -3,6 +3,10 @@
     "description": "dev",
     "type": "project",
     "license": "MIT",
+    "version": "1.1",
+    "require": {
+        "php":">=7.0"
+    },
     "authors": [
         {
             "name": "shadow",
@@ -10,9 +14,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "php":">=7.0"
-    },
     "autoload": {
         "psr-4": {"Plutuspay\\": "src/plutuspay"}
     }

@@ -108,4 +108,21 @@ class Client
     public function getNotifyUrl(){
         return $this->notifyUrl;
     }
+
+    public function verifyData($result){
+
+        if (isset($result['signature']) && isset($result['content'])) {
+            if (!$this->verifySign($this->publicKey, $result['content'], $result['signature'])) {
+                throw new Exception("Signature error", 10032);
+            }
+            $response = $this->aes128cbcOpensslDecrypt($result['content'], $this->keyStr, $this->iv);
+            $responseData = json_decode($response, true);
+            if (!$responseData) {
+                throw new Exception("Unable to parse data", 10033);
+            }
+            $result['data'] = isset($responseData) ? $responseData : [];
+            return $result;
+        }
+        return false;
+    }
 }
